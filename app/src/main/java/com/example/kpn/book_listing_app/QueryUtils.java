@@ -24,15 +24,20 @@ import java.util.List;
 
 public class QueryUtils  {
 
-    private String ITEMS = "items";
+    private static String ITEMS = "items";
 
-    private String VOLUME_INFO = "volumeInfo";
+    private static String VOLUME_INFO = "volumeInfo";
 
-    private String VOLUME_INFO_TITLE = "title";
+    private static String VOLUME_INFO_TITLE = "title";
 
-    private String VOLUME_INFO_AUTHORS = "authors";
+    private static String VOLUME_INFO_AUTHORS = "authors";
 
-    public List<Books> extractBooks (String url_string) throws JSONException
+
+    public QueryUtils()
+    {
+    }
+
+    public static  List<Books> extractBooks (String url_string) throws JSONException
     {
 
         URL url = createurl(url_string);
@@ -54,7 +59,7 @@ public class QueryUtils  {
         return books;
     }
 
-    private List<Books> getFeatures(String jsonResponse) throws JSONException
+    private static List<Books> getFeatures(String jsonResponse) throws JSONException
     {
         List<Books> books = new ArrayList<>();
 
@@ -67,7 +72,7 @@ public class QueryUtils  {
 
         JSONArray items = root.getJSONArray(ITEMS);
 
-        for ( int i = 0 ; i < 2 ; i++ )
+        for ( int i = 0 ; i < 3 ; i++ )
         {
             JSONObject object = items.getJSONObject(i);
 
@@ -88,7 +93,7 @@ public class QueryUtils  {
 
     }
 
-    private String makeHttpRequest(URL url) throws IOException {
+    private static String makeHttpRequest(URL url) throws IOException {
 
         String json_response = "";
         InputStream inputStream = null;
@@ -140,7 +145,7 @@ public class QueryUtils  {
 
     }
 
-    private String getResponse(InputStream inputStream) throws IOException
+    private static String getResponse(InputStream inputStream) throws IOException
     {
         StringBuilder builder = new StringBuilder();
 
@@ -165,7 +170,7 @@ public class QueryUtils  {
 
     }
 
-    private URL createurl(String url_string)
+    private static URL createurl(String url_string)
     {
         URL url = null;
         try
