@@ -2,4 +2,5 @@
     <string name="app_name">Book_Listing_App</string>
     <string name="title">Title</string>
     <string name="search">Search</string>
+    <string name="nothing_to_show">Nothing to Show</string>
 </resources>

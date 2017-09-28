@@ -2,6 +2,7 @@ package com.example.kpn.book_listing_app;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -31,18 +32,11 @@ public class BookLoader extends AsyncTaskLoader<List<Books>> {
     @Override
     public List<Books> loadInBackground()
     {
-        List<Books> list = new ArrayList<>();
+        List<Books> list;
 
         if ( url != null)
         {
-            try
-            {
-                list = QueryUtils.extractBooks(url) ;
-            }
-            catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+            list = QueryUtils.extractBooks(url) ;
             return list ;
         }
 

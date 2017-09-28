@@ -25,27 +25,22 @@ import java.util.List;
 public class QueryUtils  {
 
     private static String ITEMS = "items";
-
     private static String VOLUME_INFO = "volumeInfo";
-
     private static String VOLUME_INFO_TITLE = "title";
-
     private static String VOLUME_INFO_AUTHORS = "authors";
 
-
+    //TODO:Check for correctness of code
+    //TODO:Add more features like image and Author etc.
     public QueryUtils()
     {
     }
 
-    public static  List<Books> extractBooks (String url_string) throws JSONException
+    public static  List<Books> extractBooks (String url_string)
     {
-
         URL url = createurl(url_string);
-
         String jsonResponse = "";
-
         List<Books> books = new ArrayList<>();
-
+        //Log.d("TAG3","response:"+jsonResponse);
         try
         {
             jsonResponse = makeHttpRequest(url);
@@ -59,34 +54,29 @@ public class QueryUtils  {
         return books;
     }
 
-    private static List<Books> getFeatures(String jsonResponse) throws JSONException
+    private static List<Books> getFeatures(String jsonResponse)
     {
         List<Books> books = new ArrayList<>();
 
         if (TextUtils.isEmpty(jsonResponse))
-        {
             return null ;
-        }
 
-        JSONObject root = new JSONObject(jsonResponse);
 
-        JSONArray items = root.getJSONArray(ITEMS);
+        JSONObject root = null;
+        try {
+            root = new JSONObject(jsonResponse);
+            JSONArray items = root.getJSONArray(ITEMS);
 
-        for ( int i = 0 ; i < 3 ; i++ )
-        {
-            JSONObject object = items.getJSONObject(i);
-
-            JSONObject volumeInfo = object.getJSONObject(VOLUME_INFO);
-
-            String title = volumeInfo.getString(VOLUME_INFO_TITLE);
-
-            JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
-
-            String author = authors.getString(0);
-
-            books.add(new Books(title , author));
-
-        }
+            for (int i = 0; i < ListBooks.RESULT_NO; i++) {
+                JSONObject object = items.getJSONObject(i);
+                JSONObject volumeInfo = object.getJSONObject(VOLUME_INFO);
+                String title = volumeInfo.getString(VOLUME_INFO_TITLE);
+                //JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
+                //String author = authors.getString(0);
+                books.add(new Books(title));
+            }
+        }catch (JSONException e)
+        {e.printStackTrace();}
 
         return books ;
 
@@ -105,24 +95,17 @@ public class QueryUtils  {
         }
 
         try {
-
             urlConnection = (HttpURLConnection) url.openConnection();
-
             urlConnection.setReadTimeout(10000);
-
             urlConnection.setConnectTimeout(15000);
-
             urlConnection.setRequestMethod("GET");
-
             urlConnection.connect();
-
             if (urlConnection.getResponseCode() == 200)
             {
                 inputStream = urlConnection.getInputStream();
                 json_response = getResponse(inputStream);
                 return json_response;
             }
-
             else Log.d("TAG", "Error code : " + urlConnection.getResponseCode());
         }
 
@@ -152,11 +135,8 @@ public class QueryUtils  {
        if ( inputStream != null)
        {
            InputStreamReader inputStreamReader = new InputStreamReader( inputStream , Charset.forName("UTF-8"));
-
            BufferedReader reader = new BufferedReader( inputStreamReader );
-
            String line = reader.readLine();
-
             while( line != null )
             {
                 builder.append(line);
@@ -165,7 +145,6 @@ public class QueryUtils  {
 
             return builder.toString();
        }
-
         return null ;
 
     }
