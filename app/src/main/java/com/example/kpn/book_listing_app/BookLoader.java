@@ -34,6 +34,8 @@ public class BookLoader extends AsyncTaskLoader<List<Books>> {
     {
         List<Books> list;
 
+        Log.d("LOG:","url"+url);
+
         if ( url != null)
         {
             list = QueryUtils.extractBooks(url) ;

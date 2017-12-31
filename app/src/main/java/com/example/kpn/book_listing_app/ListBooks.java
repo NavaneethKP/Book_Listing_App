@@ -21,12 +21,14 @@ public class ListBooks extends AppCompatActivity implements LoaderManager.Loader
     private TextView tv_nothing;
     private ProgressBar pb_books;
 
-    private String URL;// ="https://www.googleapis.com/books/v1/volumes?q=android&maxResults=10";
+    private String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_books);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
         URL = i.getStringExtra("URL");
@@ -35,6 +37,7 @@ public class ListBooks extends AppCompatActivity implements LoaderManager.Loader
         pb_books = (ProgressBar) findViewById(R.id.pb_books);
         lv_books.setEmptyView(tv_nothing);
         getLoaderManager().initLoader(0, null, this);
+
         //TODO: Check for network connection and call loader
     }
 
@@ -49,13 +52,18 @@ public class ListBooks extends AppCompatActivity implements LoaderManager.Loader
 
         pb_books.setVisibility(View.GONE);
 
+
         if( data != null )
         {
             adapter = new CustomAdapter(this, R.layout.list_item, data);
             lv_books.setAdapter(adapter);
 
         }
-        tv_nothing.setText("Nothing to Show");
+
+        else
+        {
+            tv_nothing.setText("Nothing to Show");
+        }
 
 
     }

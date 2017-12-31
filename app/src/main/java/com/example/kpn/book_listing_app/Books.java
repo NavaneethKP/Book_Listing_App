@@ -7,10 +7,13 @@ package com.example.kpn.book_listing_app;
 public class Books {
 
     String title;
-    String author;
+    String imageUrl, volumeLink,author;
 
-    public Books(String title) {
+
+    public Books(String title, String imageUrl, String volumeLink, String author) {
         this.title = title;
+        this.imageUrl = imageUrl ;
+        this.volumeLink = volumeLink;
         this.author = author;
     }
 
@@ -18,7 +21,9 @@ public class Books {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
+     public String getImageUrl(){return imageUrl;}
+
+    public String getVolumeLink() {return volumeLink;}
+
+    public String getAuthor() {return author;}
 }

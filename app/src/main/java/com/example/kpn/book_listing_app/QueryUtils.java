@@ -28,9 +28,12 @@ public class QueryUtils  {
     private static String VOLUME_INFO = "volumeInfo";
     private static String VOLUME_INFO_TITLE = "title";
     private static String VOLUME_INFO_AUTHORS = "authors";
+    private static String IMAGE_LINKS = "imageLinks";
+    private static String IMAGE_URL = "smallThumbnail";
+    private static String VOLUME_LINK = "canonicalVolumeLink";
 
-    //TODO:Check for correctness of code
-    //TODO:Add more features like image and Author etc.
+    //TODO:Add more features like Author etc.
+
     public QueryUtils()
     {
     }
@@ -71,9 +74,19 @@ public class QueryUtils  {
                 JSONObject object = items.getJSONObject(i);
                 JSONObject volumeInfo = object.getJSONObject(VOLUME_INFO);
                 String title = volumeInfo.getString(VOLUME_INFO_TITLE);
-                //JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
-                //String author = authors.getString(0);
-                books.add(new Books(title));
+
+                /*JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
+
+                if(authors.getString(0)!=null)
+                    author = authors.getString(0);
+                */
+
+                JSONObject imageLinks = volumeInfo.getJSONObject(IMAGE_LINKS);
+                String imageUrl = imageLinks.getString(IMAGE_URL);
+
+
+                String volumeLink = volumeInfo.getString(VOLUME_LINK);
+                books.add(new Books(title,imageUrl,volumeLink,"author"));
             }
         }catch (JSONException e)
         {e.printStackTrace();}

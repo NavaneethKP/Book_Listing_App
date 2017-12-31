@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
     public void displayBooks(View view) {
 
         String search_text=et_search.getText().toString();
-        search_text=search_text.replace(" ","+");
+        search_text = search_text.replace(" ","+");
 
         //TODO :set error for the TextInputEditText
+
         URL ="https://www.googleapis.com/books/v1/volumes?q="+search_text;
         Intent intent = new Intent(this, ListBooks.class);
         intent.putExtra("URL", URL);
