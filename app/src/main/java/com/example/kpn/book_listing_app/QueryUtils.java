@@ -33,7 +33,6 @@ public class QueryUtils  {
     private static String IMAGE_URL = "smallThumbnail";
     private static String VOLUME_LINK = "canonicalVolumeLink";
     private static String PUBLISHER = "publisher";
-    //TODO:Add more features like Author etc.
 
     public QueryUtils()
     {
@@ -44,7 +43,7 @@ public class QueryUtils  {
         URL url = createurl(url_string);
         String jsonResponse = "";
         List<Books> books = new ArrayList<>();
-        //Log.d("TAG3","response:"+jsonResponse);
+
         try
         {
             jsonResponse = makeHttpRequest(url);

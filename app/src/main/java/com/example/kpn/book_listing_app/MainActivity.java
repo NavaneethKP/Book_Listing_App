@@ -16,7 +16,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText et_search;
-    private TextInputLayout tl_search;
     private String URL;
 
     @Override
@@ -25,18 +24,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         et_search = (TextInputEditText) findViewById(R.id.et_search);
-        tl_search = (TextInputLayout) findViewById(R.id.tl_search);
 
     }
 
     public void displayBooks(View view) {
 
-        String search_text=et_search.getText().toString();
+        String search_text = et_search.getText().toString();
         search_text = search_text.replace(" ","+");
 
-        //TODO :set error for the TextInputEditText
-
-        URL ="https://www.googleapis.com/books/v1/volumes?q="+search_text;
+        URL = "https://www.googleapis.com/books/v1/volumes?q="+search_text;
         Intent intent = new Intent(this, ListBooks.class);
         intent.putExtra("URL", URL);
         startActivity(intent);
