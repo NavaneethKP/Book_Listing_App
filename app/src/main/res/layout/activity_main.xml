@@ -7,37 +7,39 @@
     android:background="@android:color/white"
     tools:context="com.example.kpn.book_listing_app.MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="176dp"
-        android:id="@+id/b_search"
-        android:text="@string/search"
-        android:onClick="displayBooks"
-
-        />
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/tl_search"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:hint="Enter Keyword"
-
-
-        >
+        android:hint="Enter Keyword">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            />
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/black" />
 
     </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/b_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tl_search"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round"
+        android:fontFamily="monospace"
+        android:onClick="displayBooks"
+        android:text="@string/search"
+
+        android:textColor="@android:color/white" />
+
+
 
 
 </RelativeLayout>

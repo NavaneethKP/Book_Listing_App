@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.PortUnreachableException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class QueryUtils  {
     private static String IMAGE_LINKS = "imageLinks";
     private static String IMAGE_URL = "smallThumbnail";
     private static String VOLUME_LINK = "canonicalVolumeLink";
-
+    private static String PUBLISHER = "publisher";
     //TODO:Add more features like Author etc.
 
     public QueryUtils()
@@ -75,18 +76,17 @@ public class QueryUtils  {
                 JSONObject volumeInfo = object.getJSONObject(VOLUME_INFO);
                 String title = volumeInfo.getString(VOLUME_INFO_TITLE);
 
-                /*JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
-
-                if(authors.getString(0)!=null)
-                    author = authors.getString(0);
-                */
+                JSONArray authors = volumeInfo.getJSONArray(VOLUME_INFO_AUTHORS);
+                String author = authors.getString(0);
 
                 JSONObject imageLinks = volumeInfo.getJSONObject(IMAGE_LINKS);
                 String imageUrl = imageLinks.getString(IMAGE_URL);
 
-
                 String volumeLink = volumeInfo.getString(VOLUME_LINK);
-                books.add(new Books(title,imageUrl,volumeLink,"author"));
+
+                String publisher =volumeInfo.getString(PUBLISHER);
+
+                books.add(new Books(title,imageUrl,volumeLink,author,publisher));
             }
         }catch (JSONException e)
         {e.printStackTrace();}

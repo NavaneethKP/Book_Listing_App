@@ -3,6 +3,8 @@ package com.example.kpn.book_listing_app;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,9 +38,19 @@ public class ListBooks extends AppCompatActivity implements LoaderManager.Loader
         tv_nothing = (TextView) findViewById(R.id.tv_nothing);
         pb_books = (ProgressBar) findViewById(R.id.pb_books);
         lv_books.setEmptyView(tv_nothing);
-        getLoaderManager().initLoader(0, null, this);
 
-        //TODO: Check for network connection and call loader
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo!=null && networkInfo.isConnectedOrConnecting();
+
+        if(isConnected)
+            getLoaderManager().initLoader(0, null, this);
+
+        else {
+            pb_books.setVisibility(View.GONE);
+            tv_nothing.setText("Check Network connection");
+        }
+
     }
 
 
@@ -52,26 +64,20 @@ public class ListBooks extends AppCompatActivity implements LoaderManager.Loader
 
         pb_books.setVisibility(View.GONE);
 
-
         if( data != null )
         {
             adapter = new CustomAdapter(this, R.layout.list_item, data);
             lv_books.setAdapter(adapter);
-
         }
 
         else
-        {
-            tv_nothing.setText("Nothing to Show");
-        }
-
-
+            tv_nothing.setText("No results found");
     }
 
     @Override
     public void onLoaderReset(Loader<List<Books>> loader)
     {
         if(adapter!=null)
-        adapter.clear();
+            adapter.clear();
     }
 }

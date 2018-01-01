@@ -77,9 +77,7 @@ public class CustomAdapter extends ArrayAdapter<Books> {
         });
 
         tv_title.setText(object.getTitle());
-
-        //if(object.getAuthor()!=null)
-        //    tv_author.setText(object.getAuthor());
+        tv_author.setText(object.getAuthor());
 
         Picasso.with(context).load(object.getImageUrl()).into(iv_image);
 
